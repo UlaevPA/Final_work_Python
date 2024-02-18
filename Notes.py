@@ -1,36 +1,27 @@
-def show_line(file_name:str):
-    with open(file_name, 'r', encoding='utf-8') as f:
-    number_note = input('Введите номер заметки: ')
-    line = []
-    for i, line in enumerate(f):
-        if i in number_note:
-            line.append(line.strip())
 
 def show_all(file_name:str):
-    with open(file_name, 'r',encoding='utf-8') as f:
+   with open(file_name, 'r', encoding='utf-8') as f:
         data = f.readlines()
-        print("".join(data))
+        for i, v in enumerate(data, 1):
+            print(i,'.', v, '\n')
+           
 
 
 def remove(file_name:str):
-    last_name = input('Введите фамилию: ')
-    first_name = input('Введите имя: ')
-    patronymic = input('Введите отчество: ')
-    phone_number = input('Введите номер телефона: ')
-    data = ""
-    with open(file_name, 'r',encoding='utf-8') as f:
-        data = f.readlines()
-        s = f'{last_name}, {first_name}, {patronymic}, {phone_number}\n'
-        data.remove(s)
-    with open(file_name, 'w',encoding='utf-8') as f:
-        f.writelines(data)
-        
+    lines=[]
+    with open(file_name, 'r', encoding='utf-8') as old:
+        lines = old.readlines()
+    with open(file_name, 'w', encoding='utf-8') as new:
+        line_del = int(input("Введите номер строки для удаления: "))
+        for number, line in enumerate(lines, 1):
+            if number != line_del:
+                new.write(line)
         
 
 def modify(file_name:str):
    
  
-    old_data = find_by_attribute(file_name, True)
+    old_data = find_by_name_note(file_name, True)
     
     print("Введите новые данные:\n")
     new_note = input('Новая заметка: ')
@@ -45,33 +36,28 @@ def modify(file_name:str):
     with open(file_name, 'w',encoding='utf-8') as f:\
         f.writelines(data)
 
-
-
         
         
-def find_by_name_note(file_name:str,option: bool):
+def find_by_name_note(file_name: str, option: bool):
     
-        
-    attr = input("Введите название заметки: ")
     with open(file_name, 'r',encoding='utf-8') as f:
-        data = f.readlines()
-        data = list(filter(lambda x: x.split(', ')[opt] == attr,data))
-        print(list(zip(range(1,len(data)+1),data)))
-        if option:
-            id = input("Введите id нужного пользователя для изменения данных: ")
-        else:
-            id = input("Введите id нужного пользователя: ")
-        return data[int(id)-1]
-    
-
+        line = f.readlines()
+        str_num = int(input("Введите строку заметки: "))
+        for i, v in enumerate(line, 1):
+            if i == str_num:
+              return ("".join(v))
+        
+       
 
 def add_new(file_name: str):
-  
+ 
     new_note = input('Новая заметка: ')
     body_note = input('Текст заметки: ')
 
     with open(file_name, 'a', encoding='utf-8') as fd:
-        fd.write(f'{new_note}:\n {body_note}\n \n')
+        fd.write(f'{new_note}: {body_note} \n')
+        
+        
 
  
 def main():
@@ -94,10 +80,10 @@ def main():
             modify(file_name=file_name)
         elif answer == '5':
             print(find_by_name_note(file_name,False))
-        elif answer == '6':
-            show_line(file_name)
         elif answer == 'q':
             flag_exit = True
+        else:
+            print('Введена неверная команда!')
 
 if __name__ == '__main__':
     main()
