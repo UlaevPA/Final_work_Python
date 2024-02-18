@@ -24,14 +24,14 @@ def modify(file_name:str):
     old_data = find_by_name_note(file_name, True)
     
     print("Введите новые данные:\n")
-    new_note = input('Новая заметка: ')
-    body_note = input('Текст новой заметки: ')
+    new_note = input('Название заметки: ')
+    body_note = input('Текст заметки: ')
     
     data = ""
     with open(file_name, 'r',encoding='utf-8') as f:
         data = f.readlines()
         i = data.index(old_data)
-        data[i] = f'{new_note},\n {body_note}\n'
+        data[i] = f'{new_note}: {body_note}\n'
         
     with open(file_name, 'w',encoding='utf-8') as f:\
         f.writelines(data)
@@ -68,7 +68,7 @@ def main():
         print('2 - добавить заметку')
         print('3 - удалить заметку')
         print('4 - изменить заметку')
-        print('5 - поиск по названию заметки')
+        print('5 - поиск по номеру заметки')
         answer = input('Введите операцию или q для выхода: ')
         if answer == '1':
             show_all(file_name=file_name)
