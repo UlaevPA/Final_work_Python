@@ -1,0 +1,14 @@
+    old_data = find_by_name_note(file_name, True)
+
+    print("Введите новые данные:\n")
+    new_note = input('Название заметки: ')
+    body_note = input('Текст заметки: ')
+
+    data = ""
+    with open(file_name, 'r', encoding='utf-8') as f:
+        data = f.readlines()
+        i = data.index(old_data)
+        data[i] = f'{new_note}: {body_note}\n'
+
+    with open(file_name, 'w', encoding='utf-8') as f:
+        f.writelines(data)
