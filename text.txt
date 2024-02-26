@@ -1,14 +1,8 @@
-    old_data = find_by_name_note(file_name, True)
+data_to_update = {}
+    for field in fields_to_change:
+        data_to_update[field] = input(f'Введите {field}: ')
 
-    print("Введите новые данные:\n")
-    new_note = input('Название заметки: ')
-    body_note = input('Текст заметки: ')
-
-    data = ""
-    with open(file_name, 'r', encoding='utf-8') as f:
-        data = f.readlines()
-        i = data.index(old_data)
-        data[i] = f'{new_note}: {body_note}\n'
-
-    with open(file_name, 'w', encoding='utf-8') as f:
-        f.writelines(data)
+    df = pd.read_csv(file_name).set_index('ID заметки')
+    df.loc[mod_line, fields_to_change] = data_to_update
+    df.to_csv(file_name)
+    print('Спасибо, данные обновлены')

@@ -2,6 +2,7 @@ import csv
 import datetime
 import pandas as pd
 
+
 def show_all(file_name):
     df = pd.read_csv(file_name)
     print(df)
@@ -12,10 +13,7 @@ def remove(file_name: str):
     print(df)
     del_line = int(input('Введите индекс строки для удаления: '))
     df = df.drop(del_line)
-    df.to_csv(file_name,header=True, index=False)
-      
-
-    
+    df.to_csv(file_name, header=True, index=False)
 
 
 def modify(file_name: str):
@@ -29,15 +27,12 @@ def modify(file_name: str):
         df.to_csv(file_name, index=False, header=None)
     elif fields_to_change == '2':
         df.loc[mod_line, 'Текст заметки'] = input('Введите новый текст: ')
-        df.to_csv(file_name,index=False, header=None)
+        df.to_csv(file_name, index=False, header=None)
     else:
         print('Неправильный выбор')
-    
-    
 
 
 def find_by_name_note(file_name: str, option: bool):
-
     with open(file_name, 'r', encoding='utf-8') as f:
         line = f.readlines()
         str_num = int(input("Введите строку заметки, кроме первой: "))
@@ -48,15 +43,10 @@ def find_by_name_note(file_name: str, option: bool):
                 return ("".join(v))
 
 
-
-
-
 def write_to_csv(data):
     with open('notes.csv', 'a', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_NONE)
         writer.writerow(data)
-    
-            
 
 
 def main():
