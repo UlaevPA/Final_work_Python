@@ -19,19 +19,20 @@ def remove(file_name: str):
 
 
 def modify(file_name: str):
-    df = pd.read_csv(file_name, header=None)
+    df = pd.read_csv(file_name)
     print(df)
 
-    mod_line = input('Введите ID заметки: ')
+    mod_line = int(input('Введите индекс заметки: '))
     fields_to_change = input('Введите "1" если хотите изменить "Название заметки" или "2" если "Текст заметки": ')
     if fields_to_change == '1':
         df.loc[mod_line, 'Название заметки'] = input('Введите новое название: ')
-        df.to_csv(file_name, index=False, header=None)
+        df.to_csv(file_name, index=False, header=True)
     elif fields_to_change == '2':
         df.loc[mod_line, 'Текст заметки'] = input('Введите новый текст: ')
-        df.to_csv(file_name,index=False, header=None)
+        df.to_csv(file_name,index=False, header = True)
     else:
         print('Неправильный выбор')
+
     
     
 
