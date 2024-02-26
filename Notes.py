@@ -38,15 +38,12 @@ def modify(file_name: str):
 
 
 def find_by_name_note(file_name: str, option: bool):
+    df = pd.read_csv(file_name)
+    print(df)
+    search_note = int(input('Введите индекс строки: '))
+    return (df.loc[[search_note]])
 
-    with open(file_name, 'r', encoding='utf-8') as f:
-        line = f.readlines()
-        str_num = int(input("Введите строку заметки, кроме первой: "))
-        for i, v in enumerate(line, 1):
-            if i == 1:
-                print("Первая строка является шапкой заметки")
-            elif i == str_num:
-                return ("".join(v))
+
 
 
 
